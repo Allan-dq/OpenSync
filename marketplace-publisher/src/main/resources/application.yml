@@ -1,0 +1,25 @@
+server.port: ${SERVER_PORT:8082}
+spring:
+  application.name: marketplace-publisher
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/opensync}
+    username: ${DB_USER:opensync}
+    password: ${DB_PASSWORD:opensync}
+  jpa:
+    open-in-view: false
+    hibernate.ddl-auto: validate
+  flyway.enabled: false
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener.ack-mode: record
+    listener.observation-enabled: true
+opensync.marketplace.base-url: ${MARKETPLACE_URL:http://localhost:8083}
+management.endpoints.web.exposure.include: health,info,prometheus,metrics
+management.tracing.sampling.probability: ${TRACING_SAMPLE_RATE:1.0}
+management.otlp.tracing.endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://localhost:4318/v1/traces}
+logging.structured.format.console: ecs

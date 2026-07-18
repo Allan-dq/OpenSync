@@ -1,0 +1,45 @@
+server:
+  port: ${SERVER_PORT:8080}
+  max-http-request-header-size: 32KB
+spring:
+  application.name: partner-gateway
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/opensync}
+    username: ${DB_USER:opensync}
+    password: ${DB_PASSWORD:opensync}
+    hikari.connection-timeout: 3000
+  jpa:
+    open-in-view: false
+    hibernate.ddl-auto: validate
+  flyway.enabled: true
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        enable.idempotence: true
+        acks: all
+    template.observation-enabled: true
+  data.redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+management:
+  endpoints.web.exposure.include: health,info,prometheus,metrics
+  tracing.sampling.probability: ${TRACING_SAMPLE_RATE:1.0}
+  otlp.tracing.endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT:http://localhost:4318/v1/traces}
+logging.structured.format.console: ecs
+springdoc.swagger-ui.path: /swagger-ui.html
+opensync.security.admin-api-key: ${ADMIN_API_KEY:}
+opensync.security.requests-per-minute: ${PARTNER_REQUESTS_PER_MINUTE:1200}
+opensync.security.max-payload-bytes: ${MAX_PAYLOAD_BYTES:1048576}
+opensync.llm:
+  provider: ${LLM_PROVIDER:mock}
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+    model: ${OPENAI_MODEL:gpt-4.1-mini}
+  anthropic:
+    api-key: ${ANTHROPIC_API_KEY:}
+    base-url: ${ANTHROPIC_BASE_URL:https://api.anthropic.com}
+    model: ${ANTHROPIC_MODEL:claude-compatible}

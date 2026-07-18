@@ -1,0 +1,4 @@
+server.port: ${SERVER_PORT:8083}
+spring.application.name: marketplace-simulator
+management.endpoints.web.exposure.include: health,info,prometheus,metrics
+

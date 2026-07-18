@@ -1,0 +1,18 @@
+[
+  {
+    "partnerListingId": "PC-30001",
+    "eventId": "EVT-2026-001",
+    "venueId": "VENUE-LA-001",
+    "section": "101",
+    "row": "A",
+    "seatStart": 1,
+    "seatEnd": 4,
+    "quantity": 4,
+    "unitPrice": 185.50,
+    "currency": "USD",
+    "status": "AVAILABLE",
+    "version": 1,
+    "partnerUpdatedAt": "2026-07-16T14:32:00Z"
+  }
+]
+

@@ -1,0 +1,17 @@
+{
+  "info": { "name": "OpenSync Demo", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "partnerApiKey", "value": "partner-a-demo-key" },
+    { "key": "adminApiKey", "value": "change-me" }
+  ],
+  "item": [
+    { "name": "Ingest Partner A", "request": { "method": "POST", "header": [
+      { "key": "Content-Type", "value": "application/json" }, { "key": "X-API-Key", "value": "{{partnerApiKey}}" },
+      { "key": "Idempotency-Key", "value": "postman-{{$guid}}" }, { "key": "X-Correlation-Id", "value": "corr-{{$guid}}" }
+    ], "body": { "mode": "raw", "raw": "{\n  \"listingId\": \"PA-10001\",\n  \"eventId\": \"EVT-2026-001\",\n  \"section\": \"101\",\n  \"row\": \"A\",\n  \"seats\": [1,2,3,4],\n  \"price\": 185.50,\n  \"currency\": \"USD\",\n  \"available\": true,\n  \"version\": 12,\n  \"updatedAt\": \"2026-07-16T14:30:00Z\"\n}" }, "url": "{{baseUrl}}/api/v1/partners/partner-a/inventory" } },
+    { "name": "Enable Marketplace Outage", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"enabled\":true,\"failureRate\":1.0,\"latencyMs\":500}" }, "url": "http://localhost:8083/marketplace/v1/admin/failure-mode" } },
+    { "name": "Replay DLQ", "request": { "method": "POST", "header": [{ "key": "X-Admin-API-Key", "value": "{{adminApiKey}}" }], "url": "{{baseUrl}}/api/v1/admin/dead-letter/{{messageId}}/replay" } }
+  ]
+}
+

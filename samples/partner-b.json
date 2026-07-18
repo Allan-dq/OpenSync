@@ -1,0 +1,11 @@
+{
+  "external_listing_code": "PB-80029",
+  "event_code": "EVT-2026-001",
+  "venue_code": "VENUE-LA-001",
+  "seat_location": { "area": "101", "line": "A", "from": 1, "to": 4 },
+  "number_available": 4,
+  "face_value": { "amount": 18550, "currency_code": "USD", "unit": "CENT" },
+  "inventory_state": "ACTIVE",
+  "revision_number": 22,
+  "last_modified": "2026-07-16T14:31:00Z"
+}

@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: opensync
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["partner-gateway:8080", "inventory-processor:8081", "marketplace-publisher:8082", "marketplace-simulator:8083"]
+

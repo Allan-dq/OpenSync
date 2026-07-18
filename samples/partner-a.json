@@ -1,0 +1,13 @@
+{
+  "listingId": "PA-10001",
+  "eventId": "EVT-2026-001",
+  "venueId": "VENUE-LA-001",
+  "section": "101",
+  "row": "A",
+  "seats": [1, 2, 3, 4],
+  "price": 185.50,
+  "currency": "USD",
+  "available": true,
+  "version": 12,
+  "updatedAt": "2026-07-16T14:30:00Z"
+}

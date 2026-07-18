@@ -1,0 +1,2 @@
+ALTER TABLE inventory
+    ALTER COLUMN currency TYPE VARCHAR(3);

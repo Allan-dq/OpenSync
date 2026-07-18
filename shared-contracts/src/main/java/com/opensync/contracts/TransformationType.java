@@ -1,0 +1,7 @@
+package com.opensync.contracts;
+
+public enum TransformationType {
+    DIRECT, STRING_TO_INTEGER, STRING_TO_DECIMAL, DIVIDE_BY_100, BOOLEAN_TO_STATUS,
+    ARRAY_LENGTH, SEAT_RANGE_TO_QUANTITY, DATE_FORMAT, ENUM_MAPPING
+}
+
