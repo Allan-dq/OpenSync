@@ -184,14 +184,9 @@ k6 run -e SCENARIO=steady -e PARTNER_API_KEY=partner-a-demo-key load-tests/opens
 k6 run -e SCENARIO=spike  -e PARTNER_API_KEY=partner-a-demo-key load-tests/opensync.js
 ```
 
-No performance numbers are fabricated. Run the workloads on a documented machine and replace this table with exported k6/Grafana results:
+Two k6 scenarios are included: a steady 100 rps / 5 min run and a 100→1,000 rps spike. Benchmark results are not published yet; when they are, they will be exported from k6/Grafana together with the machine specification.
 
-| Scenario | Throughput | P50 | P95 | P99 | Error rate | Kafka lag | DB CPU |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| 100 rps / 5 min | Not run | Not run | Not run | Not run | Not run | Not run | Not run |
-| 100→1,000 rps spike | Not run | Not run | Not run | Not run | Not run | Not run | Not run |
-
-## Interview demo
+## Walkthrough
 
 1. Send Partner A and B samples, then query their canonical inventory.
 2. Resend the same idempotency key and show the same `requestId` with no second update.
@@ -202,7 +197,7 @@ No performance numbers are fabricated. Run the workloads on a documented machine
 
 ## Observability
 
-Logs use ECS structured JSON and include service/trace context plus correlation MDC. Kafka listener/template observations propagate traces. The provisioned Grafana dashboard contains ingestion/processing/publishing rates, failures, DLQ activity, and latency quantiles. Capture real Swagger, Grafana, and Jaeger screenshots after running the stack; none are checked in yet because this repository does not invent runtime evidence.
+Logs use ECS structured JSON and include service/trace context plus correlation MDC. Kafka listener/template observations propagate traces. The provisioned Grafana dashboard contains ingestion/processing/publishing rates, failures, DLQ activity, and latency quantiles. Capture real Swagger, Grafana, and Jaeger screenshots after running the stack; they are not checked in yet.
 
 ## Trade-offs and future work
 
