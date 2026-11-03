@@ -206,3 +206,7 @@ Logs use ECS structured JSON and include service/trace context plus correlation 
 - Add HMAC timestamped webhooks, per-partner mapping-specific enum tables, secret-manager integration, schema registry compatibility checks, and a Partner C polling connector.
 - Add partition-key hot-spot tests, multi-region conflict policy, retention/compaction policies, and real load-test evidence.
 - A frontend is intentionally omitted; Swagger, Grafana, and Jaeger expose the backend behavior directly.
+
+## License
+
+Released under the [MIT License](LICENSE).
