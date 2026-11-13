@@ -1,8 +1,23 @@
 # OpenSync
 
+[![CI](https://github.com/Allan-dq/OpenSync/actions/workflows/ci.yml/badge.svg)](https://github.com/Allan-dq/OpenSync/actions/workflows/ci.yml)
+
 OpenSync is an AI-assisted, event-driven partner inventory synchronization platform built with Java and Spring Boot. It accepts heterogeneous inventory formats from external partners, normalizes them into a canonical ticket model, and reliably publishes updates through Kafka-based processing pipelines.
 
 The system demonstrates idempotency, out-of-order event handling, optimistic locking, transactional outbox, exponential retries, dead-letter queues, distributed tracing, and LLM-assisted schema mapping. The default `mock` LLM provider requires no API key.
+
+## Results at a glance
+
+Checked by [GitHub Actions](https://github.com/Allan-dq/OpenSync/actions/workflows/ci.yml) on every push (Ubuntu, Java 21, Docker).
+
+| Check | Result |
+| --- | --- |
+| Unit tests | 9/9 passed (6 test classes) |
+| End-to-end test on real PostgreSQL, Kafka and Redis containers | Passes all five scenarios: normal publish, duplicate request returns the same `requestId`, stale version 11 after 12 is `STALE_REJECTED`, marketplace outage retries then `DEAD_LETTERED`, DLQ replay `RESOLVED` |
+| `docker compose up --build` | All four services build and report `UP` on `/actuator/health` |
+| Throughput and latency under load | Not measured yet; see [Load testing](#load-testing) |
+
+Run it locally (Docker with Compose v2): `cp .env.example .env`, set `ADMIN_API_KEY` and `GRAFANA_PASSWORD`, then `docker compose up --build`.
 
 ## Architecture
 
@@ -175,7 +190,7 @@ LLM output is never executable code and never enters the inventory pipeline dire
 ./mvnw verify               # includes Testcontainers integration test
 ```
 
-The end-to-end test covers normal publish, duplicate webhook, stale update, marketplace outage/DLQ, and recovery/replay. It uses PostgreSQL, Kafka, and Redis containers and skips explicitly when Docker is unavailable. Unit tests cover Partner A/B mapping, cents conversion, seat quantity, duplicate/stale decisions, and invalid AI transformations.
+The end-to-end test covers normal publish, duplicate webhook, stale update, marketplace outage/DLQ, and recovery/replay. It uses PostgreSQL, Kafka, and Redis containers and skips explicitly when Docker is unavailable. CI runs `./mvnw verify` with Docker available and fails if the integration test is skipped, then starts the full Compose stack and checks every service's health endpoint. Unit tests cover Partner A/B mapping, cents conversion, seat quantity, duplicate/stale decisions, and invalid AI transformations.
 
 ## Load testing
 
